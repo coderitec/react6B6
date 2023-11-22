@@ -2,6 +2,6 @@
 
 export default function About() {
   return (
-    <div>About page</div>
+    <div>About my library</div>
   )
 }
