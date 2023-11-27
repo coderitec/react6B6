@@ -6,7 +6,7 @@ import Link from "next/link"
 export default function page({params}) {
     const card = books.find(book => book.title.split(' ').join('-') == params.slug)
 
-    const filteredBooks = books.filter(book => book.type == card.type || book.author == card.author)
+    const filteredBooks = books.filter(book => (book.type == card.type || book.author == card.author) && book.title !== card.title)
 
 
   return (
