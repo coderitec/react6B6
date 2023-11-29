@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import pic from '../images/book1.jpg'
+// import pic from '../images/book1.jpg'
 
 export default function Main() {
   return (
