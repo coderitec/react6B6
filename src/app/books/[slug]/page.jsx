@@ -1,3 +1,4 @@
+"use client"
 import { books } from "@/app/course/page"
 import Image from "next/image"
 import styles from './books.module.css'

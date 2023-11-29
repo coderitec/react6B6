@@ -1,4 +1,8 @@
+"use client"
+import Image from "next/image"
 import Link from "next/link"
+import { useState } from "react"
+
 
 export const books = [
   {
@@ -170,9 +174,17 @@ export const books = [
     ]
   }
 ]
+export default function Course() {
+const [searchBook, setSearchBook] = useState('')
+const filteredBook = books.filter(book => book.title.toLowerCase().includes(searchBook.toLowerCase()) ||  book.author.toLowerCase().includes(searchBook.toLowerCase()) )
 
+function onSubmit(e){
+  e.preventDefault()
+  setSearchBook(e.target.search.value)
+  // alert('you are tired')
+}
 
-const bookCard = books.map(book => (
+const bookCard = filteredBook.map(book => (
   <section key={book.id} className="p-[4rem] shadow-2xl">
   <Link href={`/books/${book.title.split(' ').join('-')}`} title={`${book.title} by ${book.author}`}>
     <h2>{book.title}</h2>
@@ -181,10 +193,28 @@ const bookCard = books.map(book => (
   </section>
 ))
 
-export default function Course() {
-  return (
+return ( 
+    filteredBook.length == 0 ? (
+      
+      <section className="flex flex-col h-[400px] items-center justify-center">
+        <Image src='/media/oops.jpg' alt="oops" width={200} height={200}/>
+        <h2 className="text-3xl">Sorry we do not have a related search now</h2>
+        <p><Link href='/' className="bg-blue-800 text-white p-2">Return to home</Link></p>
+      </section>
+    ) :
+    <div>
+      <form className="flex items-center justify-center"
+      onSubmit={onSubmit} method="post">
+        <input type="text" name="search" id="search" placeholder="Search for book or Author" 
+        className="w-3/5 outline-none rounded-[40px] border-2 border-gray-700 border-solid p-4 my-5 m-auto"
+        defaultValue={searchBook}
+        />
+      </form>
     <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
       {bookCard}
     </div>
-  )
+    </div>
+    
+    )
+    
 }
